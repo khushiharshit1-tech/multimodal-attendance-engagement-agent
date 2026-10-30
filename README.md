@@ -1,42 +1,40 @@
+
 # Multimodal Attendance & Engagement Agent
 
-An offline-first classroom intelligence **student project prototype**. It demonstrates video-based person detection, sustained track filtering, manual student identification, attendance export, and a basic room-level visual activity indicator.
+An offline-first classroom intelligence student project prototype. It demonstrates video-based person detection, sustained tracking, manual student identification, attendance management, and basic classroom activity estimation.
 
 ## Features
 
-- Upload a classroom recording from the browser.
-- Detect people using OpenCV's built-in HOG person detector.
-- Associate detections across sampled frames using bounding-box overlap (IoU).
-- Keep tracks that meet a configurable sustained-presence threshold.
-- Manually map a track to a registered student; no face recognition is used.
-- Save timestamped session records locally and export attendance as CSV.
-- Show a coarse frame-change/movement estimate for the room.
+- Upload classroom recordings through the browser.
+- Detect people using OpenCV's HOG person detector.
+- Track detected people across sampled video frames.
+- Filter tracks using a sustained-presence threshold.
+- Manually assign detected tracks to registered students.
+- Manage student records and attendance.
+- View previous classroom sessions.
+- Export attendance records as CSV.
+- Display a basic room-level visual activity indicator.
 
-## Important limitations
+## Technology Stack
 
-This is a prototype, not a production attendance or engagement system.
+| Technology | Purpose |
+|---|---|
+| Python | Backend programming |
+| FastAPI | Web framework and API |
+| OpenCV | Video processing and person detection |
+| HTML | Dashboard structure |
+| CSS | Dashboard styling |
+| JavaScript | Frontend functionality |
+| Uvicorn | Application server |
 
-- HOG detection is a classical computer-vision baseline. It can miss people, produce duplicate tracks, and struggle with occlusion, unusual camera angles, or crowded rooms.
-- Track IDs are temporary visual tracks, **not student identities**. A teacher must manually assign each track.
-- The activity indicator measures coarse frame-to-frame visual change. It does **not** infer attention, emotion, comprehension, or learning.
-- This initial version does not yet implement audio analysis, per-student engagement scoring, live webcam processing, or automated teaching recommendations. Those are suitable future extensions.
-- Validate attendance manually before using records for official purposes. Obtain appropriate consent and follow your institution's privacy rules before recording a class.
-
-## Tech stack
-
-- Python + FastAPI
-- OpenCV + NumPy
-- HTML, CSS, vanilla JavaScript
-- JSON file storage (local prototype)
-
-## Project structure
+## Project Structure
 
 ```text
 multimodal-attendance-engagement-agent/
 ├── app/
 │   ├── main.py
+│   ├── __init__.py
 │   ├── data/
-│   │   └── .gitkeep
 │   └── static/
 │       ├── index.html
 │       ├── styles.css
@@ -46,93 +44,90 @@ multimodal-attendance-engagement-agent/
 └── README.md
 ```
 
-## Run locally
+## Installation and Setup
 
-### 1. Install Python
-
-Use Python 3.10 or newer. Check:
+### 1. Clone the repository
 
 ```bash
-python --version
+git clone https://github.com/khushiharshit1-tech/multimodal-attendance-engagement-agent.git
 ```
 
-### 2. Create and activate a virtual environment
-
-**Windows (PowerShell):**
-
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-```
-
-**Windows (Command Prompt):**
-
-```bat
-python -m venv .venv
-.venv\Scripts\activate
-```
-
-**macOS / Linux:**
+### 2. Open the project folder
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
+cd multimodal-attendance-engagement-agent
 ```
 
-### 3. Install dependencies
+### 3. Create a virtual environment
+
+```bash
+python -m venv venv
+```
+
+### 4. Activate the environment
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+### 5. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Start the server
-
-From the project root:
+### 6. Start the application
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-### 5. Open the dashboard
+### 7. Open the dashboard
 
-Visit <http://127.0.0.1:8000> in your browser.
+Visit:
 
-API documentation is available at <http://127.0.0.1:8000/docs>.
+http://127.0.0.1:8000
 
-## How to use
+## How It Works
 
-1. Add students to the Student Register.
-2. Choose a classroom video and set the minimum sustained-presence duration.
-3. Select **Analyze video** and wait for processing.
-4. Review the detected tracks.
-5. Manually assign each track to the correct student.
-6. Export the attendance CSV.
+1. Register students through the dashboard.
+2. Upload a classroom video.
+3. The system processes sampled video frames.
+4. Detected people are tracked across frames.
+5. Tracks meeting the sustained-presence threshold are displayed.
+6. Manually assign detected tracks to registered students.
+7. View attendance and export records as CSV.
 
-Use a short, well-lit video with a stationary camera for the first test. For best results, choose a recording where people are visible from head to toe and are not heavily obstructed.
+## Current Limitations
 
-## GitHub upload
+- The system processes uploaded videos rather than live webcam footage.
+- Student identification is manual; facial recognition is not used.
+- Visual activity is a basic room-level movement estimate, not a direct measurement of attention or learning.
+- Audio analysis and AI-driven teaching suggestions are planned extensions, not currently implemented features.
+- Detection and tracking may be affected by occlusion, crowded rooms, and camera angles.
 
-1. Create a new empty repository on GitHub.
-2. Extract this project ZIP.
-3. Open a terminal in the extracted project folder.
-4. Run:
+## Future Scope
 
-```bash
-git init
-git add .
-git commit -m "Initial classroom attendance and engagement prototype"
-git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
-git push -u origin main
-```
+- Real-time classroom monitoring.
+- Audio activity analysis.
+- Improved multi-person tracking.
+- Engagement trend visualization.
+- AI-assisted teaching suggestions.
+- Session analytics and reporting.
+- Local database integration.
 
-Replace the remote URL with your own repository URL.
+## Privacy
 
-## Future improvements
+The application is designed for local video processing and local data storage. Use classroom recordings only with appropriate permission and consent. Do not upload private student information or classroom recordings to a public repository.
 
-- Add audio activity analysis using a local audio-processing pipeline.
-- Improve tracking with a dedicated multi-object tracker.
-- Add a live webcam mode.
-- Add class-level interaction summaries and instructor-reviewed teaching suggestions.
-- Add database storage, authentication, and configurable data-retention controls.
-- Add tests and deployment configuration.
+## Author
+
+**Khushi Jain**
+
+GitHub: https://github.com/khushiharshit1-tech
+
+---
+
+Developed as an academic project exploring computer vision, classroom analytics, and intelligent attendance management.
