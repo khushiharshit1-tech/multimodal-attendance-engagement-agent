@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Classroom Intelligence | Attendance & Engagement</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">◎</div><div><b>ClassroomIQ</b><small>OFFLINE CLASSROOM AGENT</small></div></div>
+    <nav>
+      <a class="active" href="#overview">◫ &nbsp; Overview</a>
+      <a href="#process">◉ &nbsp; Process a session</a>
+      <a href="#students">♙ &nbsp; Student register</a>
+      <a href="#history">▤ &nbsp; Session history</a>
+    </nav>
+    <div class="sidebar-note"><span class="status-dot"></span> Local prototype<br><small>Your data stays on this device.</small></div>
+  </aside>
+
+  <main>
+    <header class="topbar"><div><span class="eyebrow">CLASSROOM ANALYTICS</span><h1>Attendance & Engagement Agent</h1><p>Track sustained presence and review classroom activity indicators.</p></div><div class="offline-pill"><span class="status-dot"></span> Offline-ready</div></header>
+
+    <section id="overview" class="stats">
+      <article class="stat-card"><span>REGISTERED STUDENTS</span><strong id="studentCount">0</strong><small>In your local register</small></article>
+      <article class="stat-card"><span>PROCESSED SESSIONS</span><strong id="sessionCount">0</strong><small>Saved on this device</small></article>
+      <article class="stat-card"><span>DETECTED TRACKS</span><strong id="trackCount">—</strong><small>Latest session</small></article>
+      <article class="stat-card"><span>VISUAL ACTIVITY</span><strong id="activityLabel">—</strong><small>Coarse movement estimate</small></article>
+    </section>
+
+    <section id="process" class="panel">
+      <div class="section-heading"><div><span class="eyebrow">01 / SESSION ANALYSIS</span><h2>Process a classroom video</h2><p>Upload a recording. The prototype samples frames and looks for people.</p></div><span class="tag">CPU processing</span></div>
+      <form id="uploadForm">
+        <label class="dropzone" for="videoFile"><span class="upload-icon">↑</span><b>Choose a classroom video</b><span>MP4, AVI, MOV, MKV or WEBM</span><input id="videoFile" name="video" type="file" accept="video/*" required></label>
+        <div class="form-row"><label>Minimum sustained presence <input type="number" id="presence" min="1" max="60" value="3"> <small>seconds</small></label><button class="primary" type="submit" id="processBtn">Analyze video →</button></div>
+      </form>
+      <div id="progress" class="notice hidden">Processing locally. Longer videos may take a few minutes…</div>
+      <div id="error" class="error hidden"></div>
+    </section>
+
+    <section id="results" class="panel hidden">
+      <div class="section-heading"><div><span class="eyebrow">02 / DETECTION RESULTS</span><h2>Detected people & attendance</h2><p>Assign each sustained track to a student manually. The system does not identify faces.</p></div><button id="csvBtn" class="secondary">↓ Export CSV</button></div>
+      <div class="result-meta" id="resultMeta"></div>
+      <div class="table-wrap"><table><thead><tr><th>Track</th><th>First seen</th><th>Last seen</th><th>Observed</th><th>Student identity</th><th>Status</th></tr></thead><tbody id="trackRows"></tbody></table></div>
+      <div class="insight" id="insight"></div>
+      <p class="disclaimer">Important: person detection can miss people or create duplicate tracks, especially with occlusion, camera movement, or crowded rooms. Verify attendance before using it as an official record.</p>
+    </section>
+
+    <section id="students" class="panel">
+      <div class="section-heading"><div><span class="eyebrow">03 / STUDENT REGISTER</span><h2>Manage students</h2><p>Names are used only when you manually assign a detected track.</p></div></div>
+      <form id="studentForm" class="student-form"><input id="studentName" placeholder="Student full name" required><input id="rollNumber" placeholder="Roll number (optional)"><button class="primary">Add student +</button></form>
+      <div id="studentList" class="student-list"></div>
+    </section>
+
+    <section id="history" class="panel">
+      <div class="section-heading"><div><span class="eyebrow">04 / SAVED RECORDS</span><h2>Session history</h2><p>Previously processed sessions stored locally.</p></div></div>
+      <div id="historyList" class="history-list"><p class="muted">No sessions processed yet.</p></div>
+    </section>
+    <footer>Multimodal Attendance & Engagement Agent · Student project prototype · Local processing</footer>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
